@@ -277,6 +277,40 @@
 
     /* ── Hint ── */
     .hint { font-size: 13px; color: var(--gray-400); text-align: center; padding: 4px 0 14px; }
+
+    .alerts-section { margin-top: 20px; }
+    .alerts-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 10px; cursor: pointer; user-select: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .alerts-title {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 12px; font-weight: 600; color: var(--gray-600);
+      text-transform: uppercase; letter-spacing: .05em;
+    }
+    .alerts-title-icon { font-size: 14px; }
+    .alerts-toggle {
+      font-size: 12px; color: var(--gray-400);
+      transition: transform 0.2s;
+    }
+    .alerts-toggle.open { transform: rotate(180deg); }
+    .alerts-list { display: none; }
+    .alerts-list.open { display: block; }
+    .alert-item {
+      display: flex; align-items: flex-start; gap: 10px;
+      padding: 11px 0;
+      border-bottom: 0.5px solid #eeece6;
+    }
+    .alert-item:last-child { border-bottom: none; }
+    .alert-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+    .alert-body {}
+    .alert-name { font-size: 13px; font-weight: 600; color: #1a1a18; margin-bottom: 2px; }
+    .alert-name.danger { color: #A32D2D; }
+    .alert-name.warning { color: #854F0B; }
+    .alert-name.info { color: #185FA5; }
+    .alert-desc { font-size: 12px; color: var(--gray-600); line-height: 1.4; }
+    .alerts-source { font-size: 11px; color: var(--gray-400); margin-top: 8px; }
   </style>
 </head>
 <body>
@@ -332,6 +366,84 @@
   </div>
 
   <p class="hint" id="hint">Tocá un slot para buscar</p>
+
+  <div class="alerts-section">
+    <div class="alerts-header" onclick="toggleAlerts()" aria-expanded="false" id="alertsHeader">
+      <div class="alerts-title">
+        <span class="alerts-title-icon">⚠️</span>
+        Alertas del equipo de enfermería
+      </div>
+      <span class="alerts-toggle open" id="alertsToggle">▼</span>
+    </div>
+    <div class="alerts-list open" id="alertsList">
+
+      <div class="alert-item">
+        <span class="alert-icon">🚫</span>
+        <div class="alert-body">
+          <div class="alert-name danger">Bicarbonato de Sodio</div>
+          <div class="alert-desc">Incompatible con la mayoría de los medicamentos. Administrar siempre en vía exclusiva.</div>
+        </div>
+      </div>
+
+      <div class="alert-item">
+        <span class="alert-icon">🚫</span>
+        <div class="alert-body">
+          <div class="alert-name danger">Calcio Gluconato / Calcio Cloruro + Ceftriaxona</div>
+          <div class="alert-desc">Contraindicado en neonatos. Riesgo de precipitación con depósito pulmonar fatal.</div>
+        </div>
+      </div>
+
+      <div class="alert-item">
+        <span class="alert-icon">🚫</span>
+        <div class="alert-body">
+          <div class="alert-name danger">Anfotericina B convencional</div>
+          <div class="alert-desc">Solo compatible con DW5%. Incompatible con SF y casi todos los medicamentos.</div>
+        </div>
+      </div>
+
+      <div class="alert-item">
+        <span class="alert-icon">🚫</span>
+        <div class="alert-body">
+          <div class="alert-name danger">Vancomicina + cefalosporinas</div>
+          <div class="alert-desc">Incompatible con Ceftriaxona, Cefotaxima, Cefazolina. Precipitación visible.</div>
+        </div>
+      </div>
+
+      <div class="alert-item">
+        <span class="alert-icon">🚫</span>
+        <div class="alert-body">
+          <div class="alert-name danger">Fenitoína / Fenobarbital</div>
+          <div class="alert-desc">Incompatibles con casi todas las mezclas. Precipitan en soluciones acuosas. Vía exclusiva.</div>
+        </div>
+      </div>
+
+      <div class="alert-item">
+        <span class="alert-icon">⚡</span>
+        <div class="alert-body">
+          <div class="alert-name warning">Aminoglucósidos + beta-lactámicos</div>
+          <div class="alert-desc">Amikacina/Gentamicina con Ampicilina: inactivación mutua. Administrar separados.</div>
+        </div>
+      </div>
+
+      <div class="alert-item">
+        <span class="alert-icon">⚡</span>
+        <div class="alert-body">
+          <div class="alert-name warning">Dopamina / Dobutamina</div>
+          <div class="alert-desc">Combinación variable. Siempre consultar concentración y solvente con Farmacia.</div>
+        </div>
+      </div>
+
+      <div class="alert-item">
+        <span class="alert-icon">ℹ️</span>
+        <div class="alert-body">
+          <div class="alert-name info">Regla general de oro</div>
+          <div class="alert-desc">Ante cualquier duda: consultar al Farmacéutico. La compatibilidad depende del solvente de elección.</div>
+        </div>
+      </div>
+
+      <p class="alerts-source">Alertas del equipo de enfermería — Hospital Garrahan</p>
+    </div>
+  </div>
 
   <div class="legend" aria-label="Referencias">
     <span class="leg"><span class="leg-dot" style="background:#1D9E75"></span>Compatible</span>
@@ -3680,6 +3792,17 @@
       closeSearch();
     }
   });
+
+  // ── Alertas ─────────────────────────────────────────────────────────────────
+  function toggleAlerts() {
+    const list = document.getElementById('alertsList');
+    const toggle = document.getElementById('alertsToggle');
+    const header = document.getElementById('alertsHeader');
+    const isOpen = list.classList.contains('open');
+    list.classList.toggle('open', !isOpen);
+    toggle.classList.toggle('open', !isOpen);
+    header.setAttribute('aria-expanded', !isOpen);
+  }
 
   // ── Service Worker ───────────────────────────────────────────────────────────
   if ('serviceWorker' in navigator) {

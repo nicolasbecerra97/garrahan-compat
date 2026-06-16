@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Skill(run)",
+      "Skill(run:*)",
+      "PowerShell(python --version 2>$null)",
+      "PowerShell(if \\($?\\) { \"python_ok\" } else { \"no_python\" })",
+      "PowerShell(Start-Process -FilePath \"python\" -ArgumentList \"-m\", \"http.server\", \"8080\", \"--directory\", \"c:\\\\Users\\\\nicol\\\\OneDrive\\\\Escritorio\\\\NICO PROYECTOS\\\\garraham-compatibilidadMedicamentos\\\\garrahan-compat\" -WindowStyle Hidden -PassThru)",
+      "PowerShell(Start-Sleep -Seconds 1; try { $r = Invoke-WebRequest -Uri \"http://localhost:8080\" -UseBasicParsing -TimeoutSec 5; \"Status: $\\($r.StatusCode\\)\" } catch { \"Error: $_\" })",
+      "PowerShell(Start-Process -FilePath \"python\" -ArgumentList \"-m http.server 8080 --directory `\"c:\\\\Users\\\\nicol\\\\OneDrive\\\\Escritorio\\\\NICO PROYECTOS\\\\garraham-compatibilidadMedicamentos\\\\garrahan-compat`\"\" -WindowStyle Normal -PassThru)"
+    ]
+  }
+}
