@@ -1,4 +1,4 @@
-const CACHE_NAME = 'garrahan-compat-v1';
+const CACHE_NAME = 'garrahan-compat-v2';
 
 const ASSETS = [
   './',
